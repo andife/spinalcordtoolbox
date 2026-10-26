@@ -68,6 +68,10 @@ In summary:
 Installation
 ------------
 
+SCT requires Python 3.11 or newer. The installers below provide a Python 3.11
+environment and install the dependencies listed in ``requirements.txt``.
+Package metadata and build configuration are defined in ``pyproject.toml``.
+
 For macOS and Linux users, the simplest way to install SCT is to download `the latest release <https://github.com/spinalcordtoolbox/spinalcordtoolbox/releases>`_, then launch the install script:
 
 .. code::

@@ -1,5 +1,7 @@
 include LICENSE
-include setup*
+include pyproject.toml
+include .flake8
+include requirements.txt
 include README*
 include CHANGES.md
 include abstract.png

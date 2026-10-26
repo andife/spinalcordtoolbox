@@ -1,0 +1,44 @@
+name: Check packaging
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install build tools
+        run: python -m pip install --upgrade pip build
+      # Build also checks that a wheel can be built from the source distribution.
+      - name: Build source distribution and wheel
+        run: python -m build
+      - name: Install wheel without runtime dependencies
+        run: python -m pip install --no-deps dist/*.whl
+      - name: Check installed metadata
+        # Avoid picking up the source tree's egg-info instead of the installed wheel.
+        working-directory: ${{ runner.temp }}
+        run: |
+          python - <<'PY'
+          from importlib.metadata import distribution
+          from pathlib import Path
+          import os
+          import tomllib
+
+          root = Path(os.environ['GITHUB_WORKSPACE'])
+          package = distribution('spinalcordtoolbox')
+          assert package.metadata['Requires-Python'] == '>=3.11'
+          assert package.version == (root / 'spinalcordtoolbox/version.txt').read_text().strip()
+          project = tomllib.loads((root / 'pyproject.toml').read_text())['project']
+          commands = {ep.name: ep.value for ep in package.entry_points if ep.group == 'console_scripts'}
+          assert commands == project['scripts']
+          assert package.metadata['License-Expression'] == project['license']
+          assert any(str(f).endswith('reports/assets/index.html') for f in package.files)
+          PY
+      - name: Check editable installation
+        run: python -m pip install --no-deps --editable .

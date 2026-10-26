@@ -1,0 +1,191 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spinalcordtoolbox"
+dynamic = ["version"]
+description = "Library of analysis tools for MRI of the spinal cord"
+readme = "README.rst"
+requires-python = ">=3.11"
+license = "LGPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [
+    {name = "NeuroPoly Lab, Polytechnique Montreal", email = "neuropoly@googlegroups.com"},
+]
+keywords = ["Magnetic Resonance Imaging", "MRI", "spinal cord", "analysis", "template"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+
+[project.urls]
+Homepage = "https://www.neuro.polymtl.ca/"
+
+# Runtime dependencies are installed separately from requirements.txt by the SCT
+# installers, including the PyTorch index option and frozen release requirements.
+[project.optional-dependencies]
+docs = [
+    "sphinxcontrib-programoutput",
+    "sphinx_rtd_theme",
+    "sphinx-copybutton",
+    "furo==2023.09.10",
+    "recommonmark",
+    "sphinx",
+    "sphinx_argparse",
+    "sphinx-substitution-extensions",
+]
+
+[project.scripts]
+sct_analyze_lesion = "spinalcordtoolbox.compat.launcher:main"
+sct_analyze_texture = "spinalcordtoolbox.compat.launcher:main"
+sct_apply_transfo = "spinalcordtoolbox.compat.launcher:main"
+sct_check_dependencies = "spinalcordtoolbox.compat.launcher:main"
+sct_concat_transfo = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_ascor = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_ernst_angle = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_hausdorff_distance = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_compression = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_flow = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_mtr = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_mtsat = "spinalcordtoolbox.compat.launcher:main"
+sct_compute_snr = "spinalcordtoolbox.compat.launcher:main"
+sct_convert = "spinalcordtoolbox.compat.launcher:main"
+sct_create_mask = "spinalcordtoolbox.compat.launcher:main"
+sct_crop_image = "spinalcordtoolbox.compat.launcher:main"
+sct_deepseg = "spinalcordtoolbox.compat.launcher:main"
+sct_deepseg_gm = "spinalcordtoolbox.compat.launcher:main"
+sct_deepseg_lesion = "spinalcordtoolbox.compat.launcher:main"
+sct_deepseg_sc = "spinalcordtoolbox.compat.launcher:main"
+sct_denoising_onlm = "spinalcordtoolbox.compat.launcher:main"
+sct_detect_compression = "spinalcordtoolbox.compat.launcher:main"
+sct_detect_pmj = "spinalcordtoolbox.compat.launcher:main"
+sct_dice_coefficient = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_compute_bvalue = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_compute_dti = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_concat_b0_and_dwi = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_concat_bvals = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_concat_bvecs = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_denoise_patch2self = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_display_bvecs = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_moco = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_separate_b0_and_dwi = "spinalcordtoolbox.compat.launcher:main"
+sct_dmri_transpose_bvecs = "spinalcordtoolbox.compat.launcher:main"
+sct_download_data = "spinalcordtoolbox.compat.launcher:main"
+sct_extract_metric = "spinalcordtoolbox.compat.launcher:main"
+sct_flatten_sagittal = "spinalcordtoolbox.compat.launcher:main"
+sct_fmri_compute_tsnr = "spinalcordtoolbox.compat.launcher:main"
+sct_fmri_moco = "spinalcordtoolbox.compat.launcher:main"
+sct_get_centerline = "spinalcordtoolbox.compat.launcher:main"
+sct_image = "spinalcordtoolbox.compat.launcher:main"
+sct_label_utils = "spinalcordtoolbox.compat.launcher:main"
+sct_label_vertebrae = "spinalcordtoolbox.compat.launcher:main"
+sct_maths = "spinalcordtoolbox.compat.launcher:main"
+sct_merge_images = "spinalcordtoolbox.compat.launcher:main"
+sct_process_segmentation = "spinalcordtoolbox.compat.launcher:main"
+sct_run_batch = "spinalcordtoolbox.compat.launcher:main"
+sct_propseg = "spinalcordtoolbox.compat.launcher:main"
+sct_qc = "spinalcordtoolbox.compat.launcher:main"
+sct_register_multimodal = "spinalcordtoolbox.compat.launcher:main"
+sct_register_to_template = "spinalcordtoolbox.compat.launcher:main"
+sct_resample = "spinalcordtoolbox.compat.launcher:main"
+sct_smooth_spinalcord = "spinalcordtoolbox.compat.launcher:main"
+sct_straighten_spinalcord = "spinalcordtoolbox.compat.launcher:main"
+sct_testing = "spinalcordtoolbox.compat.launcher:main"
+sct_version = "spinalcordtoolbox.compat.launcher:main"
+sct_warp_template = "spinalcordtoolbox.compat.launcher:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {file = "spinalcordtoolbox/version.txt"}
+
+[tool.setuptools.packages.find]
+exclude = [".git", "data", "dev", "dev.*", "install", "testing"]
+namespaces = false
+
+[tool.pytest.ini_options]
+addopts = '--show-capture=stderr --tb=native'
+python_files = 'testing/**/test_*.py'
+# The parent folder for SCT's conda installation is called `python`.
+norecursedirs = 'python'
+markers = [
+    'sct_testing: marks tests that belonged to previous testing harness (often used by users to verify installation)',
+]
+filterwarnings = [
+##############################
+# Numerical-related warnings #
+##############################
+    # 1. RuntimeWarnings usually come from numpy/scipy/etc. numerical issues. These should be taken
+    #    seriously, but are time-consuming to debug. These should definitely be explored in future issues.
+    #    1a. This is the most frequent error. Happens in at least 5 separate LOCs.
+    'ignore:invalid value encountered in subtract.*:RuntimeWarning:',
+    'ignore:invalid value encountered in divide.*:RuntimeWarning:',
+    'ignore:invalid value encountered in scalar divide.*:RuntimeWarning:',
+    #    1b. This is the second-most frequent error. Happens in at least 2 separate LOCs.
+    'ignore:invalid value encountered in double_scalars.*:RuntimeWarning:',
+    #    1c. This happens once: `test_cli_register_to_template` --> `compute_pca()` --> `coordsrc.mean(0)`
+    'ignore:Mean of empty slice.*:RuntimeWarning:',
+    #    1d. This happens once: `test_cli_register_to_template` --> `compute_pca()` --> `coordsrc.std()`
+    'ignore:Degrees of freedom <= 0 for slice.*:RuntimeWarning:',
+    # 2. RankWarning stemming from 'np.polynomial.Polynomial.fit()' (1 warning)
+    #    Source: test_get_centerline_optic[params2] --> `curve_fitting.py :: polyfit_1d()`
+    'ignore:The fit may be poorly conditioned.*::numpy.*:',
+    # 3. ConvergenceWarning stemming from 'sklearn.linear_model._coordinate_descent.enet_coordinate_descent()'
+    #    Source: test_sct_dmri_denoise_patch2self --> `dipy.patch2self` --> `sklearn.linear_model.LinearRegression()`
+    #    NB This issue is likely fixed by improving the quality of the `patch2self` dummy test data.
+    'ignore:Objective did not converge. You might want to increase the number of iterations.*::sklearn.*:',
+    # 4. UserWarning stemming from `dipy.gradients.read_bvals_bvecs()`
+    #    Source: test_sct_dmri_denoise_patch2self --> `sct_dmri_concat_b0_and_dwi` --> `read_bvals_becs`
+    #    NB: This issue is likely fixed by improving the quality of the `patch2self` dummy test data.
+    'ignore:Detected only 1 direction on your bvec file.*:UserWarning:dipy.*:',
+#####################
+# Upstream warnings #
+#####################
+    # This warning is generated by packages built using Swig. (https://github.com/swig/swig/issues/2881)
+    # I don't really know how to identify which packages are the problematic ones, since this only
+    # appears when running the `sct_fmri_compute_tsnr -mask` test in pytest, but not when running the
+    # same function in the command line, and the FMRI script doesn't have unique packages it imports.
+    # So, for now, we can just ignore it.
+    'ignore:.*builtin type SwigPyObject has no __module__ attribute.*:DeprecationWarning::',
+    'ignore:.*builtin type SwigPyPacked has no __module__ attribute.*:DeprecationWarning::',
+    'ignore:.*builtin type swigvarlink has no __module__ attribute.*:DeprecationWarning::',
+    # The following are upstream dependencies that have DeprecationWarnings for THEIR dependencies.
+    # We can't do much about these besides alert the upstream packages + upgrade where possible.
+    # NB: Pystrum/VoxelMorph aren't well-maintained, but torch is. We should see if we can upgrade.
+    'ignore:.*inspect.getargspec.*:DeprecationWarning:voxelmorph.*:',
+    'ignore:.*scipy.ndimage.*:DeprecationWarning:monai.*:',
+    'ignore:.*scipy.ndimage.*:DeprecationWarning:batchgenerators.*:',
+    'ignore:.*scipy.ndimage.*:DeprecationWarning:nnunetv2.*:',
+    # NB: This UserWarning is also an upstream issue, this time with the PyTorch version of the VoxelMorph network.
+    #     I'm not sure if we can do much here, but it will only become an issue if and when we upgrade torch.
+    # Source: test_sct_register_multimodal_mto_image_data --> `algorithms.py :: vxm.networks.VxmDense()`
+    'ignore:.*in an upcoming release, it will be required to pass the indexing argument.*:UserWarning:torch.*:',
+    # This warning is due to a deprecation for a call that is still used by many upstream packages. In our case:
+    # - monai: https://github.com/Project-MONAI/MONAI/issues/7559
+    'ignore:pkg_resources is deprecated as an API:DeprecationWarning:monai.*:',
+    # These warnings are for non-GUI backends on headless machines (i.e. CI), so it's safe to ignore.
+    'ignore:Matplotlib is currently using agg.*:UserWarning:',
+    'ignore:.*is non-interactive, and thus cannot be shown:UserWarning:',
+    # This is a warning we ourselves generate, and needs discussion
+    # Revisit as part of: https://github.com/spinalcordtoolbox/spinalcordtoolbox/issues/4357
+    'ignore:.*with additional arguments is discouraged:UserWarning:',
+    # NB: `pandas` is being held to <2.0.0 by ivadomed, but numpy is free to upgrade, resulting in several upstream
+    # deprecation warnings by mixing an out-of-date pandas with an up-to-date numpy.
+    'ignore:np.find_common_type is deprecated:DeprecationWarning:pandas.*:',
+    'ignore:NumPy will stop allowing conversion:DeprecationWarning:pandas.*:',
+    # MONAI/nnUNet warnings: https://github.com/spinalcordtoolbox/spinalcordtoolbox/issues/4404
+    'ignore:Detected old nnU-Net plans format:UserWarning:nnunetv2.*:',
+    'ignore:.*Our suggested max number of worker.*:UserWarning:torch.*:',
+]
