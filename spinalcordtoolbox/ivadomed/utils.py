@@ -36,12 +36,12 @@ class Metavar(Enum):
 
 def initialize_wandb(wandb_params):
     """Initializes WandB and based upon the parameters sets it up or disables it for experimental tracking
-    
+
     Args:
         wandb_params (dict): wandb parameters
-        
+
     Returns:
-        bool, wandb_tracking: True if wandb tracking is enabled        
+        bool, wandb_tracking: True if wandb tracking is enabled
     """
     try:
         # raise an error if the key is empty
@@ -52,7 +52,7 @@ def initialize_wandb(wandb_params):
         # if not, login would raise an exception for the cases invalid API key and not found
         wandb.login(key=wandb_params[WandbKW.WANDB_API_KEY], anonymous='allow', timeout=60)
 
-    except Exception as e:
+    except Exception:
         # log error mssg for unsuccessful wandb authentication
         if wandb_params is not None:
             logger.info("Incorrect WandB API Key! Please re-check the entered API key.")
@@ -213,7 +213,6 @@ def plot_transformed_sample(before, after, list_title=None, fname_out="", cmap="
         fname_out (str): Output filename where the plot is saved if provided.
         cmap (str): Matplotlib colour map.
     """
-    import matplotlib
     import matplotlib.pyplot as plt
     if list_title is None:
         list_title = []
@@ -401,7 +400,7 @@ def get_command(args, context):
 
         try:
             if context[ConfigKW.COMMAND] == "train" or context[ConfigKW.COMMAND] == "test" or context[
-                ConfigKW.COMMAND] == "segment":
+                    ConfigKW.COMMAND] == "segment":
                 return context[ConfigKW.COMMAND]
             else:
                 logger.error("Specified invalid command argument in config file.")
@@ -537,14 +536,14 @@ def get_mac_system_memory() -> float:
 
     # Iterate processes
     processLines = ps.split('\n')
-    sep = re.compile('[\s]+')
+    sep = re.compile(r'[\s]+')
     rssTotal = 0  # kB
     for row in range(1, len(processLines)):
         rowText = processLines[row].strip()
         rowElements = sep.split(rowText)
         try:
             rss = float(rowElements[0]) * 1024
-        except:
+        except Exception:
             rss = 0  # ignore...
         rssTotal += rss
 

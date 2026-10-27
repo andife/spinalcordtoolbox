@@ -160,8 +160,8 @@ class MRI2DSegmentationDataset(Dataset):
                     continue
 
                 item: Tuple[dict, dict] = imed_transforms.apply_preprocessing_transforms(self.prepro_transforms,
-                                                                      slice_seg_pair,
-                                                                      slice_roi_pair)
+                                                                                         slice_seg_pair,
+                                                                                         slice_roi_pair)
                 # Run once code to keep track if disk cache is used
                 if self.disk_cache is None:
                     self.determine_cache_need(item, input_data_shape[-1])
@@ -229,8 +229,8 @@ class MRI2DSegmentationDataset(Dataset):
 
                     # Extract patch from handlers for patch filter
                     patch = {'input': list(np.asarray(input_img)[:, x_min:x_max, y_min:y_max]),
-                             'gt': list(np.asarray(gt_img)[:, x_min:x_max, y_min:y_max]) \
-                                   if gt_img else [],
+                             'gt': list(np.asarray(gt_img)[:, x_min:x_max, y_min:y_max])
+                             if gt_img else [],
                              'input_metadata': input_metadata,
                              'gt_metadata': gt_metadata}
                     if self.patch_filter_fn and not self.patch_filter_fn(patch):
@@ -330,15 +330,15 @@ class MRI2DSegmentationDataset(Dataset):
 
         # Extract image and gt slice or patch from coordinates
         stack_input = np.asarray(seg_pair_slice[SegmentationPairKW.INPUT])[
-                      :,
-                      x_min:x_max,
-                      y_min:y_max
+            :,
+            x_min:x_max,
+            y_min:y_max
         ]
         if seg_pair_slice[SegmentationPairKW.GT]:
             stack_gt = np.asarray(seg_pair_slice["gt"])[
-                       :,
-                       x_min:x_max,
-                       y_min:y_max
+                :,
+                x_min:x_max,
+                y_min:y_max
             ]
         else:
             stack_gt = []

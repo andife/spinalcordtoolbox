@@ -85,7 +85,7 @@ def get_preds(context: dict, fname_model: str, model_params: dict, cuda_availabl
         # Otherwise, Onnex Inference (PyTorch can't load .onnx)
         else:
             logger.debug(f"Likely ONNX model detected at: {fname_model}")
-            logger.debug(f"Conduct ONNX model inference... ")
+            logger.debug("Conduct ONNX model inference... ")
             preds = onnx_inference(fname_model, img)
 
         logger.debug("Sending predictions to CPU")
@@ -122,7 +122,7 @@ def get_onehotencoder(context: dict, folder_model: str, options: dict, ds: Datas
 
 
 def pred_to_nib(data_lst: List[np.ndarray], z_lst: List[int], fname_ref: str, fname_out: str, slice_axis: int,
-                debug: bool = False, kernel_dim: str='2d', bin_thr: float=0.5, discard_noise: bool = True,
+                debug: bool = False, kernel_dim: str = '2d', bin_thr: float = 0.5, discard_noise: bool = True,
                 postprocessing: dict = None) -> nib.Nifti1Image:
     """Save the network predictions as nibabel object.
 
@@ -225,7 +225,7 @@ def pred_to_png(pred_list: list, target_list: list, subj_path: str, suffix: str 
     for pred, target in zip(pred_list, target_list):
         filename = subj_path + target + suffix
         data = pred.get_fdata()
-        _img = (data*255/max_value).astype(np.uint8).squeeze()
+        _img = (data * 255 / max_value).astype(np.uint8).squeeze()
         imageio.v3.imwrite(filename, _img, extension='.png')
 
 
@@ -411,14 +411,14 @@ def segment_volume(folder_model: str, fname_images: list, gpu_id: int = 0, optio
         loader_params[LoaderParamsKW.SLICE_FILTER_PARAMS][SliceFilterParamsKW.FILTER_EMPTY_MASK] = False
 
     kernel_3D = bool(ConfigKW.MODIFIED_3D_UNET in context and context[ConfigKW.MODIFIED_3D_UNET][ModelParamsKW.APPLIED]) or \
-                not context[ConfigKW.DEFAULT_MODEL][ModelParamsKW.IS_2D]
+        not context[ConfigKW.DEFAULT_MODEL][ModelParamsKW.IS_2D]
 
     if (options is not None) and (OptionKW.NO_PATCH in options) and kernel_3D:
-        logger.warning(f"The 'no-patch' option is provided but is not available for 3D models. "
-                       f"'no-patch' is ignored.")
+        logger.warning("The 'no-patch' option is provided but is not available for 3D models. "
+                       "'no-patch' is ignored.")
     if (options is not None) and (OptionKW.OVERLAP_2D in options) and kernel_3D:
-        logger.warning(f"The 'overlap-2d' option is provided but is not available for 3D models. "
-                       f"'overlap-2d' is ignored.")
+        logger.warning("The 'overlap-2d' option is provided but is not available for 3D models. "
+                       "'overlap-2d' is ignored.")
 
     # Assign length_2D and stride_2D for 2D patching
     length_2D = context[ConfigKW.DEFAULT_MODEL][ModelParamsKW.LENGTH_2D] if \
@@ -438,8 +438,8 @@ def segment_volume(folder_model: str, fname_images: list, gpu_id: int = 0, optio
                            f"'{fname_model_metadata.split('/')[-1]}'. 2D patching is ignored, the segmentation "
                            f"is done on the entire image without patches.")
         if OptionKW.OVERLAP_2D in options:
-            logger.warning(f"The 'no-patch' option is provided along with the 'overlap-2D' option. "
-                           f"2D patching is ignored, the segmentation is done on the entire image without patches.")
+            logger.warning("The 'no-patch' option is provided along with the 'overlap-2D' option. "
+                           "2D patching is ignored, the segmentation is done on the entire image without patches.")
     else:
         if (options is not None) and (OptionKW.OVERLAP_2D in options) and not kernel_3D:
             if (length_2D and stride_2D):
@@ -491,7 +491,7 @@ def segment_volume(folder_model: str, fname_images: list, gpu_id: int = 0, optio
         onehotencoder = get_onehotencoder(context, folder_model, options, ds)
         model_params.update({ModelParamsKW.NAME: ConfigKW.FILMED_UNET,
                              ModelParamsKW.FILM_ONEHOTENCODER: onehotencoder,
-                             ModelParamsKW.N_METADATA: len([ll for l in onehotencoder.categories_ for ll in l])})
+                             ModelParamsKW.N_METADATA: len([ll for cats in onehotencoder.categories_ for ll in cats])})
 
     # Data Loader
     data_loader = DataLoader(ds, batch_size=context[ConfigKW.TRAINING_PARAMETERS][TrainingParamsKW.BATCH_SIZE],
@@ -672,7 +672,7 @@ def volume_reconstruction(batch: dict, pred: tensor, undo_transforms: UndoCompos
 
 
 def image_reconstruction(batch: dict, pred: tensor, undo_transforms: UndoCompose, smp_idx: int,
-                        image: tensor = None, weight_matrix: tensor = None):
+                         image: tensor = None, weight_matrix: tensor = None):
     """
     Reconstructs image prediction from patches used during training
     Args:

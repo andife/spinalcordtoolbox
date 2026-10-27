@@ -2,7 +2,6 @@ from __future__ import annotations
 import collections.abc
 import re
 import sys
-import os
 import joblib
 import gc
 from pathlib import Path
@@ -13,8 +12,7 @@ import pandas as pd
 import torch
 from loguru import logger
 from sklearn.model_selection import train_test_split
-from ivadomed import utils as imed_utils
-from ivadomed.keywords import SplitDatasetKW, LoaderParamsKW, ROIParamsKW, ContrastParamsKW
+from ivadomed.keywords import SplitDatasetKW
 import nibabel as nib
 import random
 import typing
@@ -67,9 +65,9 @@ def split_dataset(df: pd.DataFrame, split_method: str, data_testing: dict, rando
     data_type = data_testing['data_type'] if data_testing['data_type'] else split_method
     data_value = data_testing['data_value']
 
-    if not split_method in df:
+    if split_method not in df:
         raise KeyError("No split_method '{}' was not found in metadata".format(split_method))
-    if not data_type in df:
+    if data_type not in df:
         logger.warning("No data_type named '{}' was found in metadata. Not taken into account "
                        "to split the dataset.".format(data_type))
         data_type = split_method
@@ -86,8 +84,8 @@ def split_dataset(df: pd.DataFrame, split_method: str, data_testing: dict, rando
     if len(data_value) != 0:
         for value in data_value:
             if value not in df[data_type].values:
-                    logger.warning("No data_value '{}' was found in '{}'. Not taken into account "
-                                   "to split the dataset.".format(value, data_type))
+                logger.warning("No data_value '{}' was found in '{}'. Not taken into account "
+                               "to split the dataset.".format(value, data_type))
     X_test = df[df[data_type].isin(data_value)]['filename'].unique().tolist()
     X_remain = df[~df[data_type].isin(data_value)][split_method].unique().tolist()
 
@@ -103,12 +101,12 @@ def split_dataset(df: pd.DataFrame, split_method: str, data_testing: dict, rando
     X_train, X_val = train_test_split(X_remain, train_size=train_frac_update, random_state=random_seed)
 
     # Print the real train, validation and test fractions after splitting
-    real_train_frac = len(X_train)/len(data)
-    real_valid_frac = len(X_val)/len(data)
+    real_train_frac = len(X_train) / len(data)
+    real_valid_frac = len(X_val) / len(data)
     real_test_frac = 1 - real_train_frac - real_valid_frac
     logger.warning("After splitting: train, validation and test fractions are respectively {}, {} and {}"
                    " of {}.".format(round(real_train_frac, 3), round(real_valid_frac, 3),
-                   round(real_test_frac, 3), split_method))
+                                    round(real_test_frac, 3), split_method))
 
     # Convert train and valid sets from list of "split_method" to list of "filename"
     X_train = df[df[split_method].isin(X_train)]['filename'].unique().tolist()
@@ -378,7 +376,7 @@ def update_metadata(metadata_src_lst: list, metadata_dest_lst: list) -> list:
     return metadata_dest_lst
 
 
-def reorient_image(arr: np.ndarray, slice_axis: int, nib_ref: nib, nib_ref_canonical: nib) -> nd.ndarray:
+def reorient_image(arr: np.ndarray, slice_axis: int, nib_ref: nib, nib_ref_canonical: nib) -> np.ndarray:
     """Reorient an image to match a reference image orientation.
 
     It reorients a array to a given orientation and convert it to a nibabel object using the
@@ -417,9 +415,9 @@ def get_file_extension(filename: str) -> Optional[str]:
 
 
 def update_filename_to_nifti(filename: str) -> str:
-    """ 
+    """
     Update filename extension to 'nii.gz' if not a NifTI file.
-    
+
     This function is used to help make non-NifTI files (e.g. PNG/TIF/JPG)
     compatible with NifTI-only pipelines. The expectation is that a NifTI
     version of the file has been created alongside the original file, which
@@ -432,7 +430,7 @@ def update_filename_to_nifti(filename: str) -> str:
         str: Path of the corresponding NifTI file.
     """
     extension = get_file_extension(filename)
-    if not "nii" in extension:
+    if "nii" not in extension:
         filename = filename.replace(extension, ".nii.gz")
     return filename
 
@@ -489,6 +487,7 @@ def create_temp_directory() -> str:
     time_stamp = datetime.datetime.now().isoformat().replace(":", "")
     temp_folder_location = mkdtemp(prefix="ivadomed_", suffix=f"_{time_stamp}")
     return temp_folder_location
+
 
 def get_obj_size(obj) -> int:
     """

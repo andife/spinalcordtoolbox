@@ -54,7 +54,7 @@ class MRI3DSubVolumeSegmentationDataset(Dataset):
                  task: str = "segmentation",
                  soft_gt: bool = False,
                  is_input_dropout: bool = False,
-                 disk_cache: bool=True):
+                 disk_cache: bool = True):
 
         self.filename_pairs = filename_pairs
 
@@ -164,10 +164,10 @@ class MRI3DSubVolumeSegmentationDataset(Dataset):
                             continue
 
                         self.indexes.append({
-                            'x_min': x_min, 
-                            'x_max': x_max, 
+                            'x_min': x_min,
+                            'x_max': x_max,
                             'y_min': y_min,
-                            'y_max': y_max, 
+                            'y_max': y_max,
                             'z_min': z_min,
                             'z_max': z_max,
                             'handler_index': i,
@@ -231,18 +231,18 @@ class MRI3DSubVolumeSegmentationDataset(Dataset):
 
         # Extract subvolume and gt from coordinates
         stack_input = np.asarray(seg_pair[SegmentationPairKW.INPUT])[
-                      :,
-                      x_min:x_max,
-                      y_min:y_max,
-                      z_min:z_max
+            :,
+            x_min:x_max,
+            y_min:y_max,
+            z_min:z_max
         ]
 
         if seg_pair[SegmentationPairKW.GT]:
             stack_gt = np.asarray(seg_pair[SegmentationPairKW.GT])[
-                       :,
-                       x_min:x_max,
-                       y_min:y_max,
-                       z_min:z_max
+                :,
+                x_min:x_max,
+                y_min:y_max,
+                z_min:z_max
             ]
         else:
             stack_gt = []

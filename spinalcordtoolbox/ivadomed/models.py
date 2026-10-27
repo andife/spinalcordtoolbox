@@ -8,11 +8,11 @@ from pathlib import Path
 import torchvision.models
 
 
-#Modified from torchvision.models.resnet.Resnet
+# Modified from torchvision.models.resnet.Resnet
 class ResNet(nn.Module):
     """ResNet model based on
      `"Deep Residual Learning for Image Recognition" <https://arxiv.org/abs/1512.03385.pdf>`_
-    
+
     Args:
         block (nn.Module): Basic block of the network (such as conv + bn + non-nonlinearity)
         layers (int list): Number of blocks to stack (network depth) after each downsampling step.
@@ -25,6 +25,7 @@ class ResNet(nn.Module):
         norm_layer (layer): Custom normalization layer, if not provided BatchNorm2d is used
 
     """
+
     def __init__(self, block, layers, num_classes=2, zero_init_residual=False,
                  groups=1, width_per_group=64, replace_stride_with_dilation=None,
                  norm_layer=None):
@@ -175,7 +176,7 @@ class DenseNet(nn.Module):
             num_features = num_features + num_layers * growth_rate
             if i != len(block_config) - 1:
                 trans = torchvision.models.densenet._Transition(num_input_features=num_features,
-                                    num_output_features=num_features // 2)
+                                                                num_output_features=num_features // 2)
                 self.features.add_module('transition%d' % (i + 1), trans)
                 num_features = num_features // 2
 
@@ -1077,7 +1078,6 @@ class Modified3DUNet(nn.Module):
         if hasattr(self, 'film_layer7') and self.film_layer7:
             out, w_film = self.film_layer7(out, context, w_film)
 
-
         # Level 2 localization pathway
         out = torch.cat([out, context_3], dim=1)
         out = self.conv_norm_lrelu_l2(out)
@@ -1135,6 +1135,7 @@ class UNet3D(Modified3DUNet):
     """To ensure retrocompatibility, when calling UNet3D (old model name), Modified3DUNet will be called.
     see Modified3DUNet to learn more about parameters.
     """
+
     def __init__(self, in_channel, out_channel, n_filters=16, attention=False, dropout_rate=0.3, bn_momentum=0.1,
                  final_activation="sigmoid", n_metadata=None, film_layers=None, **kwargs):
         super(UNet3D, self).__init__()
@@ -1171,6 +1172,7 @@ class GridAttentionBlockND(nn.Module):
         psi (Conv2d or Conv3d): Convolution layer for gating operation.
 
     """
+
     def __init__(self, in_channels, gating_channels, inter_channels=None, dimension=3,
                  sub_sample_factor=(2, 2, 2)):
         super(GridAttentionBlockND, self).__init__()
@@ -1505,12 +1507,12 @@ def get_model_filenames(folder_model):
             raise FileNotFoundError(f"Model files not found in model folder: "
                                     f"'{str(fname_model_onnx)}' or '{str(fname_model_pt)}'")
         # '.pt' is preferred on GPU, or on CPU if '.onnx' doesn't exist
-        elif ((    cuda_available and     fname_model_pt.is_file()) or
+        elif ((cuda_available and fname_model_pt.is_file()) or
               (not cuda_available and not fname_model_onnx.is_file())):
             fname_model = fname_model_pt
         # '.onnx' is preferred on CPU, or on GPU if '.pt' doesn't exist
-        elif ((not cuda_available and     fname_model_onnx.is_file()) or
-              (    cuda_available and not fname_model_pt.is_file())):
+        elif ((not cuda_available and fname_model_onnx.is_file()) or
+              (cuda_available and not fname_model_pt.is_file())):
             fname_model = fname_model_onnx
 
         fname_model_metadata = Path(folder_model, prefix_model + '.json')

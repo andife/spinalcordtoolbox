@@ -920,8 +920,8 @@ class ElasticTransform(ImedTransform):
                                   np.arange(shape[1]),
                                   np.arange(shape[2]), indexing='ij')
             indices = np.reshape(x + dx, (-1, 1)), \
-                      np.reshape(y + dy, (-1, 1)), \
-                      np.reshape(z + dz, (-1, 1))
+                np.reshape(y + dy, (-1, 1)), \
+                np.reshape(z + dz, (-1, 1))
 
             # Apply deformation
             data_out = map_coordinates(sample, indices, order=1, mode='reflect')
