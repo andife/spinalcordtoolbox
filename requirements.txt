@@ -59,7 +59,9 @@ onnxruntime>=1.7.0,!=1.16.0,<1.22.0
 # onnx==[1.16.2,1.17.0,1.18.0] all cause errors for Python 3.9 + Windows (https://github.com/onnx/onnx/issues/6267#issuecomment-2877327002)
 # 1.17.0 can partially work as long as SCT doesn't import it, but this is flaky.
 onnx<1.16.2
-pandas
+# pandas 3 turns several pandas 2 deprecations into errors that SCT hasn't been migrated for yet, e.g. `float()` on a
+# single-element Series in `sct_analyze_lesion`. See: https://github.com/spinalcordtoolbox/spinalcordtoolbox/issues/4406
+pandas<3
 portalocker
 psutil
 # pyqt5=5.15.X causes https://github.com/spinalcordtoolbox/spinalcordtoolbox/issues/3925, however
