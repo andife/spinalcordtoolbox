@@ -5,6 +5,9 @@
 # Modifications for SCT:
 #   - `default_unet_features` is imported from the vendored `utils` module.
 #   - Removed the unused `torch.nn.functional` import and trailing whitespace in docstrings (flake8).
+#   - `VxmDense` subclasses `nn.Module` instead of `LoadableModel` and is no longer decorated with
+#     `store_config_args`, since SCT never uses `.save()`, `.load()`, or `.config`. This removes the
+#     use of `inspect.getargspec`, which does not exist in Python 3.11+.
 
 import numpy as np
 import torch
@@ -13,7 +16,6 @@ from torch.distributions.normal import Normal
 
 from .utils import default_unet_features
 from . import layers
-from .modelio import LoadableModel, store_config_args
 
 
 class Unet(nn.Module):
@@ -151,12 +153,11 @@ class Unet(nn.Module):
         return x
 
 
-class VxmDense(LoadableModel):
+class VxmDense(nn.Module):
     """
     VoxelMorph network for (unsupervised) nonlinear registration between two images.
     """
 
-    @store_config_args
     def __init__(self,
                  inshape,
                  nb_unet_features=None,
