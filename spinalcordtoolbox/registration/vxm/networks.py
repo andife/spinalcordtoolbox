@@ -1,3 +1,11 @@
+# This file is vendored from VoxelMorph 0.2 (https://github.com/voxelmorph/voxelmorph),
+# originally `voxelmorph/torch/networks.py`, licensed under the Apache License, Version 2.0.
+# See the LICENSE.md file in this directory for the full license text.
+#
+# Modifications for SCT:
+#   - `default_unet_features` is imported from the vendored `utils` module.
+#   - Removed the unused `torch.nn.functional` import and trailing whitespace in docstrings (flake8).
+
 import numpy as np
 import torch
 import torch.nn as nn
