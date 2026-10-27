@@ -1,3 +1,10 @@
+# This file is vendored from ivadomed 2.9.10 (https://github.com/ivadomed/ivadomed),
+# originally `ivadomed/loader/sample_meta_data.py`, licensed under the MIT License.
+# See the LICENSE.md file in this directory for the full license text.
+#
+# Modified for SCT: code unused by `sct_deepseg` inference was removed, and imports were adapted.
+# See this file's git history for details.
+
 from __future__ import annotations
 import typing
 if typing.TYPE_CHECKING:

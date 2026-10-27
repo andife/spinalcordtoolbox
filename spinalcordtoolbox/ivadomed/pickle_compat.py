@@ -5,6 +5,9 @@ Some ivadomed models (e.g. `mice_uqueensland_sc`) are distributed as `.pt` files
 objects, which refer to classes by their original module path (e.g. `ivadomed.models.Unet`). This module provides
 a `pickle_module` for `torch.load` that maps those paths onto SCT's vendored copy (`spinalcordtoolbox.ivadomed`),
 so that the models can be loaded without the `ivadomed` package being installed.
+
+Copyright (c) 2026 Polytechnique Montreal <www.neuro.polymtl.ca>
+License: see the file LICENSE
 """
 
 import pickle
