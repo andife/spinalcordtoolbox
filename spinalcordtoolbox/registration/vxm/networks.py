@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 from torch.distributions.normal import Normal
 
-from .. import default_unet_features
+from .utils import default_unet_features
 from . import layers
 from .modelio import LoadableModel, store_config_args
 
