@@ -4,8 +4,8 @@ from typing import Dict, List, Any, Union
 
 from loguru import logger
 from pathlib import Path
-from ivadomed import utils as imed_utils
-from ivadomed.keywords import ConfigKW, LoaderParamsKW, SplitDatasetKW, DataTestingKW
+from spinalcordtoolbox.ivadomed import utils as imed_utils
+from spinalcordtoolbox.ivadomed.keywords import ConfigKW, LoaderParamsKW, SplitDatasetKW, DataTestingKW
 import copy
 
 

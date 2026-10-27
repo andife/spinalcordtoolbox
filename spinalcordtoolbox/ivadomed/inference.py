@@ -9,18 +9,18 @@ from loguru import logger
 from torch.utils.data import DataLoader
 from torch import tensor
 
-from ivadomed.loader.mri3d_subvolume_segmentation_dataset import MRI3DSubVolumeSegmentationDataset
-from ivadomed.loader.mri2d_segmentation_dataset import MRI2DSegmentationDataset
-from ivadomed.transforms import UndoCompose
-from ivadomed import config_manager as imed_config_manager
-from ivadomed import models as imed_models
-from ivadomed import postprocessing as imed_postpro
-from ivadomed import transforms as imed_transforms
-from ivadomed.loader import utils as imed_loader_utils
-from ivadomed.loader.slice_filter import SliceFilter
-from ivadomed.object_detection import utils as imed_obj_detect
-from ivadomed import utils as imed_utils
-from ivadomed.keywords import ConfigKW, ModelParamsKW, ObjectDetectionParamsKW, TransformationKW, LoaderParamsKW, \
+from spinalcordtoolbox.ivadomed.loader.mri3d_subvolume_segmentation_dataset import MRI3DSubVolumeSegmentationDataset
+from spinalcordtoolbox.ivadomed.loader.mri2d_segmentation_dataset import MRI2DSegmentationDataset
+from spinalcordtoolbox.ivadomed.transforms import UndoCompose
+from spinalcordtoolbox.ivadomed import config_manager as imed_config_manager
+from spinalcordtoolbox.ivadomed import models as imed_models
+from spinalcordtoolbox.ivadomed import postprocessing as imed_postpro
+from spinalcordtoolbox.ivadomed import transforms as imed_transforms
+from spinalcordtoolbox.ivadomed.loader import utils as imed_loader_utils
+from spinalcordtoolbox.ivadomed.loader.slice_filter import SliceFilter
+from spinalcordtoolbox.ivadomed.object_detection import utils as imed_obj_detect
+from spinalcordtoolbox.ivadomed import utils as imed_utils
+from spinalcordtoolbox.ivadomed.keywords import ConfigKW, ModelParamsKW, ObjectDetectionParamsKW, TransformationKW, LoaderParamsKW, \
     ROIParamsKW, SliceFilterParamsKW, TrainingParamsKW, MetadataKW, OptionKW
 
 

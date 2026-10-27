@@ -16,8 +16,8 @@ from skimage.exposure import equalize_adapthist
 from torchvision import transforms as torchvision_transforms
 
 
-from ivadomed.loader import utils as imed_loader_utils
-from ivadomed.keywords import TransformationKW, MetadataKW
+from spinalcordtoolbox.ivadomed.loader import utils as imed_loader_utils
+from spinalcordtoolbox.ivadomed.keywords import TransformationKW, MetadataKW
 
 
 def multichannel_capable(wrapped):

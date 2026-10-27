@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from ivadomed import utils as imed_utils
+from spinalcordtoolbox.ivadomed import utils as imed_utils
 
 
 class SliceFilter(object):
