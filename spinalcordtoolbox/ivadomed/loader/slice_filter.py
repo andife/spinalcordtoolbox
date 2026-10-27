@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 from spinalcordtoolbox.ivadomed import utils as imed_utils
+from spinalcordtoolbox.ivadomed.pickle_compat import torch_load
 
 
 class SliceFilter(object):
@@ -45,9 +46,9 @@ class SliceFilter(object):
 
         if self.filter_classification:
             if cuda_available:
-                self.classifier = torch.load(classifier_path, map_location=device)
+                self.classifier = torch_load(classifier_path, map_location=device)
             else:
-                self.classifier = torch.load(classifier_path, map_location='cpu')
+                self.classifier = torch_load(classifier_path, map_location='cpu')
 
     def __call__(self, sample: dict) -> bool:
         """Extract input_data and gt_data lists from sample dict and discard them if they don't match certain

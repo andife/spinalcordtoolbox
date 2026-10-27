@@ -20,6 +20,7 @@ from spinalcordtoolbox.ivadomed.loader import utils as imed_loader_utils
 from spinalcordtoolbox.ivadomed.loader.slice_filter import SliceFilter
 from spinalcordtoolbox.ivadomed.object_detection import utils as imed_obj_detect
 from spinalcordtoolbox.ivadomed import utils as imed_utils
+from spinalcordtoolbox.ivadomed.pickle_compat import torch_load
 from spinalcordtoolbox.ivadomed.keywords import ConfigKW, ModelParamsKW, ObjectDetectionParamsKW, TransformationKW, LoaderParamsKW, \
     ROIParamsKW, SliceFilterParamsKW, TrainingParamsKW, MetadataKW, OptionKW
 
@@ -65,7 +66,7 @@ def get_preds(context: dict, fname_model: str, model_params: dict, cuda_availabl
         if fname_model.lower().endswith('.pt'):
             logger.debug(f"PyTorch model detected at: {fname_model}")
             logger.debug(f"Loading model from: {fname_model}")
-            model = torch.load(fname_model, map_location=device)
+            model = torch_load(fname_model, map_location=device)
             # Inference time
             logger.debug(f"Evaluating model: {fname_model}")
             model.eval()
