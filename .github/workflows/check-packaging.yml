@@ -24,7 +24,7 @@ jobs:
       - name: Build source distribution and wheel
         run: python -m build
       - name: Upload test wheels
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: wheels-python-${{ matrix.python-version }}
           path: dist/*.whl
