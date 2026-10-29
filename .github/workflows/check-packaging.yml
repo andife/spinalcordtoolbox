@@ -1,6 +1,11 @@
 name: Check packaging
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - af/python311-pyproject
 
 jobs:
   build:
